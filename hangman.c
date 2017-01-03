@@ -92,22 +92,13 @@ struct game_state init()
 	return state;
 }
 
+void print_state(struct game_state *state)
+{
+	if (state == NULL)
+		return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	printf("  Wort: %s\n", state->visible);
+	printf("Falsch: %s\n", state->wrong);
+	printf("Galgen: %d\n", state->progress);
+}
 
