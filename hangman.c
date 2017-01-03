@@ -116,3 +116,11 @@ void print_state(struct game_state *state)
 	printf("Falsch: %s\n", state->wrong);
 	printf("Galgen: %d\n", state->progress);
 }
+
+int game_over(struct game_state *state)
+{
+	if (state == NULL)
+		return 1;
+
+	return state->progress >= 8;	
+}
