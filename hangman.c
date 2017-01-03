@@ -21,6 +21,9 @@ struct game_state
 // initialisiert Anfangsspielstand
 struct game_state init();
 
+// free't die von malloc allokierten Strings in 'state'
+void free_state(struct game_state *state);
+
 // gibt Speilstand aus
 void print_state(struct game_state *state);
 
@@ -49,6 +52,8 @@ int main()
 		fgets(input, 1024, stdin);
 		update_state(&state, input);
 	}
+
+	free_state(&state);
 }
 
 void malloc_fail()
@@ -92,6 +97,16 @@ struct game_state init()
 	return state;
 }
 
+void free_state(struct game_state *state)
+{
+	if (state == NULL)
+		return;
+
+	free(state->to_guess);
+	free(state->visible);
+	free(state->wrong);
+}
+
 void print_state(struct game_state *state)
 {
 	if (state == NULL)
@@ -101,4 +116,3 @@ void print_state(struct game_state *state)
 	printf("Falsch: %s\n", state->wrong);
 	printf("Galgen: %d\n", state->progress);
 }
-
