@@ -1,6 +1,8 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 // representiert Zustand eines Spiels
 struct game_state
@@ -58,7 +60,7 @@ int main()
 
 void malloc_fail()
 {
-	fprintf(stderr, "Not enough memory!\n");
+	fprintf(stderr, "Nicht genug Speicher!\n");
 	exit(1);
 }
 
@@ -117,10 +119,67 @@ void print_state(struct game_state *state)
 	printf("Galgen: %d\n", state->progress);
 }
 
+void update_state(struct game_state *state, char *input)
+{
+	if (state == NULL)
+		return;
+	if (input == NULL)
+		return;
+
+	size_t length = strlen(input);
+
+	// Zeilenumbruch entfernen
+	if (input[length - 1] == '\n')
+	{
+		input[length - 1] = '\0';
+		length--;
+	}
+
+	if (length == 1)
+	{
+		char c = tolower(input[0]);
+		int fail = 1;
+
+		length = strlen(state->to_guess);
+		for (size_t i = 0; i < length; i++)
+		{
+			if (tolower(state->to_guess[i]) == c)
+			{
+				state->visible[i] = state->to_guess[i];
+				fail = 0;
+			}
+		}
+
+		if (fail && strchr(state->wrong, c) == NULL)
+		{
+			state->progress++;
+			state->wrong[strlen(state->wrong)] = c;
+		}
+	}
+	else if (length > 1)
+	{
+		if (strcasecmp(state->to_guess, input) == 0)
+		{
+			strcpy(state->visible, state->to_guess);
+		}
+		else
+		{
+			state->progress++;
+		}
+	}
+}
+
 int game_over(struct game_state *state)
 {
 	if (state == NULL)
 		return 1;
 
-	return state->progress >= 8;	
+	if (state->progress >= 8)
+	{
+		return 1;
+	}
+	else
+	{
+		return strchr(state->visible, '_') == NULL;
+	}
 }
