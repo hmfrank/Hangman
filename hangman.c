@@ -26,14 +26,98 @@ struct game_state init();
 // free't die von malloc allokierten Strings in 'state'
 void free_state(struct game_state *state);
 
-// gibt Speilstand aus
+// gibt Spielstand aus
 void print_state(struct game_state *state);
 
-// aktualisiert Speilstand bei gegebener Eingabe
+// aktualisiert Spielstand bei gegebener Eingabe
 void update_state(struct game_state *state, char *input);
 
-// gibt 1 (true) zurueck, wenn das Speil vorbei ist
+// gibt 1 (true) zurueck, wenn das Spiel vorbei ist
 int game_over(struct game_state *state);
+
+
+
+char *gallows[8] = {
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"=============\n",
+
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"             \n"
+	"    _____    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"             \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/     \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
+	"      |      \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
+	"      |  ^W^ \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
+	"      |  ^W^ \n"
+	"      |  / \\ \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+};
 
 
 
@@ -57,6 +141,8 @@ int main()
 
 	free_state(&state);
 }
+
+
 
 void malloc_fail()
 {
@@ -114,9 +200,9 @@ void print_state(struct game_state *state)
 	if (state == NULL)
 		return;
 
+	printf("%s", gallows[state->progress]);
 	printf("  Wort: %s\n", state->visible);
 	printf("Falsch: %s\n", state->wrong);
-	printf("Galgen: %d\n", state->progress);
 }
 
 void update_state(struct game_state *state, char *input)
