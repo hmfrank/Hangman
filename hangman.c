@@ -37,7 +37,7 @@ int game_over(struct game_state *state);
 
 
 
-char *gallows[8] = {
+char *gallows[11] = {
 	"             \n"
 	"             \n"
 	"             \n"
@@ -100,8 +100,38 @@ char *gallows[8] = {
 
 	"      _____  \n"
 	"      |/  O  \n"
+	"      |   W  \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
+	"      |  ^W  \n"
+	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
 	"      |  ^W^ \n"
 	"      |      \n"
+	"      |      \n"
+	"    __|__    \n"
+	"   /     \\   \n"
+	"  /       \\  \n"
+	"=============\n",
+
+	"      _____  \n"
+	"      |/  O  \n"
+	"      |  ^W^ \n"
+	"      |  /   \n"
 	"      |      \n"
 	"    __|__    \n"
 	"   /     \\   \n"
@@ -116,7 +146,7 @@ char *gallows[8] = {
 	"    __|__    \n"
 	"   /     \\   \n"
 	"  /       \\  \n"
-	"=============\n",
+	"=============\n"
 };
 
 
@@ -154,7 +184,7 @@ char *get_random_word()
 {
 	char *word;
 
-	word = calloc(8, sizeof(char));
+	word = calloc(11, sizeof(char));
 	if (word == NULL)
 		malloc_fail();
 
@@ -260,7 +290,7 @@ int game_over(struct game_state *state)
 	if (state == NULL)
 		return 1;
 
-	if (state->progress >= 7)
+	if (state->progress >= 10)
 	{
 		return 1;
 	}
