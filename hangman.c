@@ -176,7 +176,7 @@ struct game_state init()
 		malloc_fail();
 	memset(state.visible, '_', length);
 
-	state.wrong = calloc(9, sizeof(char));
+	state.wrong = calloc(8, sizeof(char));
 	if (state.wrong == NULL)
 		malloc_fail();
 
@@ -260,7 +260,7 @@ int game_over(struct game_state *state)
 	if (state == NULL)
 		return 1;
 
-	if (state->progress >= 8)
+	if (state->progress >= 7)
 	{
 		return 1;
 	}
